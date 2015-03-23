@@ -29,3 +29,9 @@ print "Is it greater or equal?", 5 >= -2
 print "Is it less or equal?", 5 <= -2
 
 print 1.2 + 3.2
+
+print 1 / 500
+
+print 3.14 * 2 * 200
+
+print 1.0 / 20
