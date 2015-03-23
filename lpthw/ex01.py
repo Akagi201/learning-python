@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-#ex01: A good first program
+#Exercise 1: A Good First Program
 
 print("Hello World!")
-print("Hello Again")
+print "Hello Again"
 print("I like Typing this.")
 print("This is fun.")
 print('Yay! Printing.')
