@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# ref: http://leodots.com/2014/11/15/python-self-map/
+
 def new(num_buckets=256):
     """Initializes a Map with the given number of buckets."""
     aMap = []
