@@ -1,0 +1,10 @@
+#!/Users/akagi201/Documents/learning-python/pyramid/misc/.envs/venv/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'Pygments==2.0.2','console_scripts','pygmentize'
+__requires__ = 'Pygments==2.0.2'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('Pygments==2.0.2', 'console_scripts', 'pygmentize')()
+    )

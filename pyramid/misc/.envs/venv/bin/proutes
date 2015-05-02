@@ -1,0 +1,10 @@
+#!/Users/akagi201/Documents/learning-python/pyramid/misc/.envs/venv/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'pyramid==1.5.7','console_scripts','proutes'
+__requires__ = 'pyramid==1.5.7'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('pyramid==1.5.7', 'console_scripts', 'proutes')()
+    )
