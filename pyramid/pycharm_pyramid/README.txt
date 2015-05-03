@@ -1,1 +1,0 @@
-pycharm_pyramid README

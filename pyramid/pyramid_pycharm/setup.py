@@ -12,12 +12,16 @@ requires = [
     'pyramid',
     'pyramid_chameleon',
     'pyramid_debugtoolbar',
+    'pyramid_tm',
+    'SQLAlchemy',
+    'transaction',
+    'zope.sqlalchemy',
     'waitress',
     ]
 
-setup(name='pycharm_pyramid',
+setup(name='pyramid_pycharm',
       version='0.0',
-      description='pycharm_pyramid',
+      description='pyramid_pycharm',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -28,15 +32,16 @@ setup(name='pycharm_pyramid',
       author='',
       author_email='',
       url='',
-      keywords='web pyramid pylons',
+      keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
+      test_suite='pyramid_pycharm',
       install_requires=requires,
-      tests_require=requires,
-      test_suite="pycharm_pyramid",
       entry_points="""\
       [paste.app_factory]
-      main = pycharm_pyramid:main
+      main = pyramid_pycharm:main
+      [console_scripts]
+      initialize_pyramid_pycharm_db = pyramid_pycharm.scripts.initializedb:main
       """,
       )
