@@ -17,7 +17,7 @@ from ..models import (
     User,
     Group,
     Base,
-    )
+    Permission, Category, Item)
 
 
 def usage(argv):
@@ -40,8 +40,24 @@ def main(argv=sys.argv):
     with transaction.manager:
         #model = MyModel(name='one', value=1)
         #DBSession.add(model)
+
+        perm_item_manage = Permission()
+        perm_item_manage.name = 'item'
+        DBSession.add(perm_item_manage)
+
+        perm_user_manage = Permission()
+        perm_user_manage.name = 'user'
+        DBSession.add(perm_user_manage)
+
+        perm_order_manage = Permission()
+        perm_order_manage.name = 'order'
+        DBSession.add(perm_order_manage)
+
         gadmin = Group()
         gadmin.name = 'Administrators'
+        gadmin.permissions.append(perm_item_manage)
+        gadmin.permissions.append(perm_order_manage)
+        gadmin.permissions.append(perm_user_manage)
         DBSession.add(gadmin)
 
         admin = User()
@@ -50,3 +66,24 @@ def main(argv=sys.argv):
         admin.email = 'admin@localhost'
         admin.group = gadmin
         DBSession.add(admin)
+
+        cat_food = Category()
+        cat_food.name = 'Food'
+        DBSession.add(cat_food)
+
+        cat_fruit = Category()
+        cat_fruit.name = 'Fruit'
+        cat_fruit.parent = cat_food
+        DBSession.add(cat_fruit)
+
+        cat_vegetable = Category()
+        cat_vegetable.name = 'Vegetable'
+        cat_vegetable.parent = cat_food
+        DBSession.add(cat_vegetable)
+
+        iapple = Item()
+        iapple.name = 'Apple'
+        iapple.description = 'This is a red apple'
+        iapple.price = 1.3
+        iapple.category = cat_fruit
+        DBSession.add(iapple)

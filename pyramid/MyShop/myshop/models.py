@@ -5,7 +5,7 @@ from sqlalchemy import (
     Integer,
     Text,
     Unicode,
-    ForeignKey, DateTime)
+    ForeignKey, DateTime, Table, Float)
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -39,16 +39,25 @@ class User(Base):
     group_id = Column(Integer, ForeignKey('groups.id'), nullable=False)
     group = relationship('Group', backref='users')
 
+group_permission = Table('group_permission', Base.metadata,
+                          Column('group_id', Integer, ForeignKey('groups.id'),
+                                 primary_key=True),
+                          Column('permission_id', Integer, ForeignKey('permissions.id'),
+                                 primary_key=True)
+                          )
+
 class Group(Base):
     __tablename__ = 'groups'
 
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), nullable=False)
 
+    permissions = relationship('Permission',
+                               secondary=group_permission, backref='groups')
+
 class Permission(Base):
     __tablename__ = 'permissions'
 
-    # TODO: many-to-many
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), nullable=False)
 
@@ -69,7 +78,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), nullable=False)
     parent_id = Column(Integer, ForeignKey('categories.id'), nullable=True)
-    parent = relationship('Category', backref='children')
+    parent = relationship('Category', remote_side=[id], backref='children')
 
 class ItemImage(Base):
     __tablename__ = 'images'
@@ -85,31 +94,43 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     user = relationship('User', backref='comments')
-    item_id = Column(Item, ForeignKey('items.id'), nullable=False)
+    item_id = Column(Integer, ForeignKey('items.id'), nullable=False)
     item = relationship('Item', backref='comments')
 
     rank = Column(Integer, nullable=False, default=3)
     content = Column(Text)
+
+cart_item = Table('cart_itemtype', Base.metadata,
+                  Column('card_id', Integer, ForeignKey('carts.id'),
+                         primary_key=True),
+                  Column('item_id', Integer, ForeignKey('items.id'),
+                         primary_key=True)
+                  )
 
 class Cart(Base):
     __tablename__ = 'carts'
 
     id = Column(Integer, primary_key=True)
 
-    # TODO: many-to-many
-    items = relationship('Item')
+    items = relationship('Item', secondary=cart_item)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     user = relationship('User', backref='cart')
+
+order_item = Table('order_item', Base.metadata,
+                   Column('order_id', Integer, ForeignKey('orders.id'),
+                          primary_key=True),
+                   Column('item_id', Integer, ForeignKey('items.id'),
+                          primary_key=True)
+                   )
 
 class Order(Base):
     __tablename__ = 'orders'
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    user = relationship('User', 'orders')
+    user = relationship('User')
 
-    # TODO: many-to-many
-    items = relationship('Item')
+    items = relationship('Item', secondary=order_item)
     add_time = Column(DateTime, nullable=False, default=datetime.now())
 
     address = Column(Unicode(255), nullable=False)
