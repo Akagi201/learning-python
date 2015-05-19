@@ -12,16 +12,13 @@ from .models import (
     )
 
 
-@view_config(route_name='home', renderer='string')
+@view_config(route_name='home', renderer='templates/index.pt')
 def index_view(request):
-    categories = DBSession.query(Category).all()
+    categories = DBSession.query(Category).filter_by(parent = None).all()
 
-    names = []
-    for category in categories:
-        names.append(category.name)
-    return {'categories': names}
+    return {'categories': categories}
 
-@view_config(route_name='category', renderer='string')
+@view_config(route_name='category', renderer='templates/category.pt')
 def category_view(request):
     try:
         id = int(request.matchdict['id'])
@@ -33,7 +30,7 @@ def category_view(request):
         return HTTPNotFound()
     return {'category': category}
 
-@view_config(route_name='item', renderer='string')
+@view_config(route_name='item', renderer='templates/item.pt')
 def item_view(request):
     try:
         id = int(request.matchdict['id'])
@@ -44,4 +41,4 @@ def item_view(request):
     if not item:
         return HTTPNotFound()
 
-    return item
+    return {'item': item}

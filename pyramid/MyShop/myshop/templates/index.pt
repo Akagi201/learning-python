@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Hello world</title>
+</head>
+<body>
+    <ul>
+        <li tal:repeat="category categories">
+                <a href="${request.route_url('category', id=category.id)}">${category.name}</a>
+        </li>
+    </ul>
+</body>
+</html>

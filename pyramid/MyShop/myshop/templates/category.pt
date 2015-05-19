@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>${category.name} - Category</title>
+</head>
+<body>
+    <h2>This is category ${category.name}</h2>
+    <em><a href="${request.route_url('home')}">Back to home page</a>
+    </em>
+    <em tal:condition="category.parent">
+        <a href="${request.route_url('category', id=category.parent.id)}">Back to ${category.parent.name}</a>
+    </em>
+    <h2>Children</h2>
+    <ul>
+        <li tal:repeat="cat category.children">
+            <a href="${request.route_url('category', id=cat.id)}">${cat.name}</a>
+        </li>
+    </ul>
+
+    <h2>Item</h2>
+    <ul tal:condition="category.items">
+        <li tal:repeat="item category.items">
+                <a href="${request.route_url('item', id=item.id)}">${item.name}</a>
+        </li>
+    </ul>
+    <p tal:condition="not category.items">
+        This category is empty.
+    </p>
+</body>
+</html>

@@ -83,7 +83,7 @@ def main(argv=sys.argv):
 
         iapple = Item()
         iapple.name = 'Apple'
-        iapple.description = 'This is a red apple'
+        iapple.description = '<h2>This is a <span style="color:red;">red</span> apple</h2>'
         iapple.price = 1.3
         iapple.category = cat_fruit
         DBSession.add(iapple)

@@ -20,5 +20,14 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('category', '/category/{id}')
     config.add_route('item', '/item/{id}')
+
+    config.add_route('login', '/login')
+    config.add_route('logout', '/logout')
+    config.add_route('register', '/register')
+
+    config.add_route('order', '/order/{id}')
+    config.add_route('cart', '/cart')
+    config.add_route('comment', '/comment')
+
     config.scan()
     return config.make_wsgi_app()
