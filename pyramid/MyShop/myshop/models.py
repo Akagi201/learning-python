@@ -135,3 +135,10 @@ class Order(Base):
 
     address = Column(Unicode(255), nullable=False)
     telephone = Column(Unicode(25), nullable=False)
+
+class Annoncement(Base):
+    __tablename__ = 'annoncements'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(255), nullable=False)
+    content = Column(Text)

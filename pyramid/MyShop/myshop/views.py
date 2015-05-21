@@ -8,6 +8,7 @@ from .models import (
     DBSession,
     Item,
     Category,
+    Annoncement,
     #MyModel,
     )
 
@@ -15,8 +16,11 @@ from .models import (
 @view_config(route_name='home', renderer='templates/index.pt')
 def index_view(request):
     categories = DBSession.query(Category).filter_by(parent = None).all()
+    annoncements = DBSession.query(Annoncement)
 
-    return {'categories': categories}
+    return {'title': 'Index - MyShop',
+            'categories': categories,
+            'annoncements': annoncements}
 
 @view_config(route_name='category', renderer='templates/category.pt')
 def category_view(request):

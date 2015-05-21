@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+
+#bigpicarea .word {
+	TEXT-ALIGN: center;
+	HEIGHT: 50px;
+	COLOR: #333
+}
+#bigpicarea .word H3 {
+	TEXT-ALIGN: center;
+	LINE-HEIGHT: 48px;
+	HEIGHT: 48px;
+	COLOR: #333;
+	FONT-SIZE: 14px
+}
+#bigpicarea .ui-els-hide {
+	DISPLAY: none
+}
+#thumbs {
+	LIST-STYLE-TYPE: none;
+	MARGIN: 0px auto;
+	WIDTH: 400px;
+	HEIGHT: 75px
+}
+* HTML #thumbs {
+	HEIGHT: 100%
+}
+#thumbs LI {
+	MARGIN:0px 5px;
+	WIDTH: 70px;
+	DISPLAY: inline;
+	FLOAT: left;
+	HEIGHT: 75px
+}
+#thumbs UL {
+}
+#thumbs LI.last_img {
+}
+#thumbs LI.first {
+	WIDTH: 9px;
+	HEIGHT: 16px;
+	CURSOR: pointer
+}
+#thumbs LI.last {
+	WIDTH: 9px;
+	HEIGHT: 16px;
+	CURSOR: pointer
+}
+#thumbs LI A {
+	BORDER-BOTTOM: #fff 2px solid;
+	BORDER-LEFT: #fff 2px solid;
+	WIDTH: 75px;
+	DISPLAY: block;
+	FONT-SIZE: 0px;
+	BORDER-TOP: #fff 2px solid;
+	BORDER-RIGHT: #fff 2px solid
+}
+#thumbs LI A:hover {
+	BORDER-BOTTOM: #dc021b 2px solid;
+	BORDER-LEFT: #dc021b 2px solid;
+	BORDER-TOP: #dc021b 2px solid;
+	BORDER-RIGHT: #dc021b 2px solid
+}
+#thumbs LI A.current {
+	BORDER-BOTTOM: #f8ae0f 2px solid;
+	BORDER-LEFT: #f8ae0f 2px solid;
+	BORDER-TOP: #f8ae0f 2px solid;
+	BORDER-RIGHT: #f8ae0f 2px solid
+}
+#thumbs LI.first IMG {
+}
+#thumbs LI.last IMG {
+}
+.bigimg{width:350px; height:322px; border:1px solid #ddd; overflow:hidden;}

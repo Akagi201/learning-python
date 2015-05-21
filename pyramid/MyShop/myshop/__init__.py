@@ -20,6 +20,8 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('category', '/category/{id}')
     config.add_route('item', '/item/{id}')
+    config.add_route('search', '/search')
+    config.add_route('annoncement', '/annoncement/{id}')
 
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
