@@ -99,10 +99,10 @@
 					<p>美国进口车厘子1kg/盒</p>
 					<p style="color:#9d2910;">188元</p>
 					<div class="star">
-						<img src="images/left10.jpg" />
-						<img src="images/left10.jpg" />
-						<img src="images/left10.jpg" />
-						<img src="images/left10.jpg" />
+						<img src="${request.static_url('myshop:static/images/left10.jpg')}" />
+						<img src="${request.static_url('myshop:static/images/left10.jpg')}" />
+						<img src="${request.static_url('myshop:static/images/left10.jpg')}" />
+						<img src="${request.static_url('myshop:static/images/left10.jpg')}" />
 					</div>
 					<div class="evaluate">
 						<span>admin:</span>
