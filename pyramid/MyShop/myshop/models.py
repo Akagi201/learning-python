@@ -39,6 +39,12 @@ class User(Base):
     group_id = Column(Integer, ForeignKey('groups.id'), nullable=False)
     group = relationship('Group', backref='users')
 
+    def has_permission(self, permission):
+        for perm in self.group.permissions:
+            if perm.name == permission:
+                return True
+        return False
+
 group_permission = Table('group_permission', Base.metadata,
                           Column('group_id', Integer, ForeignKey('groups.id'),
                                  primary_key=True),
@@ -79,6 +85,12 @@ class Category(Base):
     name = Column(Unicode(255), nullable=False)
     parent_id = Column(Integer, ForeignKey('categories.id'), nullable=True)
     parent = relationship('Category', remote_side=[id], backref='children')
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
 
 class ItemImage(Base):
     __tablename__ = 'images'

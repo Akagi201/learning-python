@@ -52,6 +52,9 @@ def main(global_config, **settings):
     config.set_authentication_policy(authn_policy)
     config.set_authorization_policy(authz_policy)
 
+    config.set_request_property(get_user, 'user', reify=True)
+    config.set_request_property(lambda request: DBSession, 'db', reify=True)
+
     config.include('pyramid_chameleon')
 
     config.add_static_view('static', 'static', cache_max_age=3600)
@@ -65,9 +68,11 @@ def main(global_config, **settings):
     config.add_route('logout', '/logout')
     config.add_route('register', '/register')
 
-    config.add_route('order', '/order/{id}')
+    config.add_route('order', '/order')
     config.add_route('cart', '/cart')
     config.add_route('comment', '/comment')
+
+    config.add_route('add_item', '/category/{id}/add')
 
     config.scan()
     return config.make_wsgi_app()

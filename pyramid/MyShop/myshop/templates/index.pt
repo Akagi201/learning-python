@@ -12,12 +12,22 @@
 	<div class="top">
 		<div class="top_link">
 			<div class="fl"><a href="#">收藏本站</a></div>
-			<div class="fr">您好，欢迎来到MyShop! 请<a href="${request.route_url('login')}">登录</a> ，新用户？<a href="register">免费注册</a>
-			<a href="#">我的订单</a> | <a href="#">帮助中心</a>
+			<div class="fr">
+				<span tal:condition="not request.user">
+				您好，欢迎来到MyShop! 请
+					<a href="${request.route_url('login')}">登录</a>
+					，新用户？<a href="register">免费注册</a>
+				</span>
+				<span tal:condition="request.user">
+					${request.user.name}, 您好, 欢迎来到MyShop!
+					<a href="${request.route_url('order')}">我的订单</a> |
+					<a href="${request.route_url('logout')}">注销</a> |
+				</span>
+			<a href="#">帮助中心</a>
 			</div>
 		</div>
 		<div class="top_center">
-			<div class="fl"><img src="${request.static_url('myshop:static/images/logo.jpg')}" width="183" height="95" /></div>
+			<div class="fl"><a href="${request.route_url('home')}"><img src="${request.static_url('myshop:static/images/logo.jpg')}" width="183" height="95" /></a></div>
 			<div class="fl search">
 				<div>
 					<input name="input" type="text" placeholder="请按产品型号、产品名称搜索" />

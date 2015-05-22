@@ -12,22 +12,12 @@
 	<div class="top">
 		<div class="top_link">
 			<div class="fl"><a href="#">收藏本站</a></div>
-			<div class="fr">
-			<span tal:condition="not request.user">
-				您好，欢迎来到MyShop! 请
-				<a href="${request.route_url('login')}">登录</a>
-				，新用户？<a href="register">免费注册</a>
-			</span>
-			<span tal:condition="request.user">
-				${request.user.name}，您好，欢迎来到MyShop!
-				<a href="${request.route_url('order')}">我的订单</a> | 
-				<a href="${request.route_url('logout')}">注销</a> |
-			</span>
-			<a href="#">帮助中心</a>
+			<div class="fr">您好，欢迎来到MyShop! 请<a href="${request.route_url('login')}">登录</a> ，新用户？<a href="register">免费注册</a>
+			<a href="#">我的订单</a> | <a href="#">帮助中心</a>
 			</div>
 		</div>
 		<div class="top_center">
-			<div class="fl"><a href="${request.route_url('home')}"><img src="${request.static_url('myshop:static/images/logo.jpg')}" width="183" height="95" /></a></div>
+			<div class="fl"><img src="${request.static_url('myshop:static/images/logo.jpg')}" width="183" height="95" /></div>
 			<div class="fl search">
 				<div>
 					<input name="input" type="text" placeholder="请按产品型号、产品名称搜索" />
@@ -57,8 +47,7 @@
 				</ul>
 			</div>
 			<ul class="nav_ulrt">
-				<li><a href="${request.route_url('home')}">首 页</a></li>
-				<li><a href="${request.route_url('add_item', id=category.id)}" tal:condition="request.user.has_permission('item')">添加商品</a></li>
+				<li><a href="#">首 页</a></li>
 			</ul>
 			<div class="gwc_tn">
 				<div class="gwc_txt">购物车 0 件</div>
@@ -125,13 +114,15 @@
 		<!--中间内容========================-->
 		<div class="cen_tn">
 			<div class="cen_cons">
-				<ul class="show_pro">
-					<li tal:repeat="item category.items">
-						<a href="${request.route_url('item', id=item.id)}"><img src="${request.static_url('myshop:static/images/proi.jpg')}" width="151" height="139" /></a>
-						<p class="tits">${item.name}</p>
-						<p class="red">促销价：￥${item.price}</p>
-					</li>
-				</ul>
+				<form action="#" method="post">
+					Name: <input type="text" name="name" />
+					<br />
+					Description: <input type="text" name="description" />
+					<br />
+					Price: <input type="text" name="price" />
+					<br />
+					<input type="submit" name="submit" />
+				</form>
 			</div>
 		</div>
 		<!--右边内容========================-->
