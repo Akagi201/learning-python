@@ -13,7 +13,7 @@ from .models import (
     Item,
     Category,
     Annoncement,
-    #MyModel,
+    # MyModel,
     User)
 
 
@@ -25,6 +25,7 @@ def index_view(request):
             'categories': categories,
             'category': None
             }
+
 
 @view_config(route_name='category', renderer='templates/category.pt', layout='master')
 def category_view(request):
@@ -38,7 +39,7 @@ def category_view(request):
         return HTTPNotFound()
 
     return {'category': category,
-        'title': category.name + ' - Category'}
+            'title': category.name + ' - Category'}
 
 
 @view_config(route_name='item', renderer='templates/item.pt', layout='master')
@@ -53,9 +54,9 @@ def item_view(request):
         return HTTPNotFound()
 
     return {'item': item,
-        'title': item.name + ' - Item',
-        'category': item.category
-        }
+            'title': item.name + ' - Item',
+            'category': item.category
+            }
 
 
 @view_config(route_name='add_item', renderer='templates/add_item.pt', permission='item')
@@ -64,9 +65,9 @@ def item_add(request):
     category_id = request.matchdict.get('id', None)
     description = request.params.get('description', None)
     price = request.params.get('price', None)
-    category = request.db.query(Category).\
+    category = request.db.query(Category). \
         filter_by(id=category_id).first()
-    categories = DBSession.query(Category).\
+    categories = DBSession.query(Category). \
         filter_by(parent=None).all()
 
     if 'submit' in request.params:
@@ -85,47 +86,56 @@ def item_add(request):
         'category': category,
     }
 
+
+def username_validator(node, value):
+    user = DBSession.query(User).filter_by(name=value).first()
+    if not user:
+        raise colander.Invalid(node, 'User %s does not exist' % value)
+
+
 class LoginFormSchema(colander.MappingSchema):
-    login = colander.SchemaNode(colander.Str())
-    password = colander.SchemaNode(colander.Str())
+    login = colander.SchemaNode(colander.Str(),
+                                validator=username_validator
+                                )
+    password = colander.SchemaNode(colander.Str(),
+                                   widget=deform.widget.PasswordWidget()
+                                   )
+
+
+def password_validator(form, value):
+    username = value['login']
+    password = value['password']
+    user = DBSession.query(User).filter_by(name=username).first()
+    if user.password != password:
+        raise colander.Invalid(form, 'Password does not match user %s' % username)
+
+
 @view_config(route_name='login', renderer='templates/login.pt')
 def login_view(request):
     deform_static.need()
-    schema = LoginFormSchema()
+
+    schema = LoginFormSchema(validator=password_validator)
     form = deform.Form(schema, buttons=('submit',))
-    '''
-    login = request.params.get('login', None)
-    password = request.params.get('password', None)
 
-    if not login:
-        return {
-            'title': 'login',
-            'message': '',
-            'login': login
-        }
+    if 'submit' in request.POST:
+        try:
+            appstruct = form.validate(request.POST.items())
+        except deform.ValidationFailure, e:
+            return {
+                'title': 'login',
+                'form': e.render()
+            }
 
-    user = DBSession.query(User).filter_by(name=login).first()
-    if not user:
-        return {
-            'title': 'login',
-            'message': 'User Not Found',
-            'login': login
-        }
+        user = DBSession.query(User).filter_by(name=appstruct['login']).first()
 
-    if user.password != password:
-        return {
-            'title': 'login',
-            'message': 'Password does not match',
-            'login': login
-        }
+        headers = remember(request, user.id)
+        return HTTPFound(location='/', headers=headers)
 
-    headers = remember(request, user.id)
-    return HTTPFound(location='/', headers=headers)
-    '''
     return {
         'title': 'login',
         'form': form.render()
     }
+
 
 @view_config(route_name='logout')
 def logout_view(request):
