@@ -1,0 +1,14 @@
+<li tal:define="description description|field.description;
+                hidden hidden|field.widget.hidden;
+                category category|field.widget.category;
+                title title|field.title;"
+    title="${description}"
+    tal:omit-tag="hidden or category == 'structural'">
+  <!-- mapping_item -->
+  <p tal:condition="not (hidden or category == 'structural')"
+         class="desc"
+         title="${description}"
+         >${title}</p>
+  <span tal:replace="structure field.serialize(cstruct, readonly=True)"/>
+  <!-- /mapping_item -->
+</li>

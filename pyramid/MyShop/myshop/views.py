@@ -87,35 +87,50 @@ def item_add(request):
     }
 
 
-def username_validator(node, value):
-    user = DBSession.query(User).filter_by(name=value).first()
-    if not user:
-        raise colander.Invalid(node, 'User %s does not exist' % value)
+class TypeUser(object):
+    def serialize(self, node, appstruct):
+        if appstruct is colander.null:
+            return colander.null
+        if not isinstance(appstruct, User):
+            raise colander.Invalid(node, '%r is not a instance of User' % appstruct)
+
+        return appstruct.name
+
+    def deserialize(self, node, cstruct):
+        if cstruct is colander.null:
+            return colander.null
+        if not isinstance(cstruct, basestring):
+            raise colander.Invalid(node, '%r is not a valid username' % cstruct)
+        user = DBSession.query(User).filter_by(name=cstruct).first()
+        if not user:
+            raise colander.Invalid(node, 'User with name %r does not exist' % cstruct)
+
+        return user
 
 
 class LoginFormSchema(colander.MappingSchema):
-    login = colander.SchemaNode(colander.Str(),
-                                validator=username_validator
-                                )
+    login = colander.SchemaNode(TypeUser())
     password = colander.SchemaNode(colander.Str(),
                                    widget=deform.widget.PasswordWidget()
                                    )
 
 
 def password_validator(form, value):
-    username = value['login']
+    user = value['login']
     password = value['password']
-    user = DBSession.query(User).filter_by(name=username).first()
+
     if user.password != password:
-        raise colander.Invalid(form, 'Password does not match user %s' % username)
+        raise colander.Invalid(form, 'Password does not match user %s' % user.name)
 
 
 @view_config(route_name='login', renderer='templates/login.pt')
 def login_view(request):
     deform_static.need()
 
+    search_path = ('myShop/templates/deform/',)
+    renderer = deform.ZPTRendererFactory(search_path)
     schema = LoginFormSchema(validator=password_validator)
-    form = deform.Form(schema, buttons=('submit',))
+    form = deform.Form(schema, buttons=('submit',), renderer=renderer)
 
     if 'submit' in request.POST:
         try:
@@ -126,7 +141,7 @@ def login_view(request):
                 'form': e.render()
             }
 
-        user = DBSession.query(User).filter_by(name=appstruct['login']).first()
+        user = appstruct['login']
 
         headers = remember(request, user.id)
         return HTTPFound(location='/', headers=headers)

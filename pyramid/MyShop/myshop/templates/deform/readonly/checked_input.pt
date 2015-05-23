@@ -1,0 +1,7 @@
+<div tal:define="subject subject|field.widget.subject;
+                 oid oid|field.oid">
+  <div>
+    <span>${subject}</span>
+    <span id="${oid}">"${cstruct}"</span>
+  </div>
+</div>

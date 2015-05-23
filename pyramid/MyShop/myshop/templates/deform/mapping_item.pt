@@ -1,0 +1,37 @@
+<div tal:define="error_class error_class|field.widget.error_class;
+                description description|field.description;
+                title title|field.title;
+                oid oid|field.oid;
+                hidden hidden|field.widget.hidden;
+                category category|field.widget.category;
+                required required|field.required;
+                "
+    class="field${field.error and ' ' + (error_class or '')}"
+    title="${description}"
+    id="item-${oid}"
+    tal:omit-tag="hidden"
+    i18n:domain="deform">
+
+  <!-- mapping_item -->
+
+  <label tal:condition="not (hidden or category == 'structural')"
+         class="desc"
+         title="${description}"
+         for="${oid}"
+         >${title}<span tal:condition="required" class="req"
+                        id="req-${oid}">*</span>
+  </label>
+
+  <span tal:replace="structure field.serialize(cstruct)"/>
+
+  <p tal:condition="field.error and not hidden and not field.typ.__class__.__name__=='Mapping'"
+     tal:define="errstr 'error-%s' % oid"
+     tal:repeat="msg field.error.messages()"
+     tal:attributes="id repeat.msg.index==0 and errstr or
+     ('%s-%s' % (errstr, repeat.msg.index))"
+     class="${error_class}"
+     i18n:translate="">${msg}</p>
+
+  <!-- /mapping_item -->
+
+</div>
