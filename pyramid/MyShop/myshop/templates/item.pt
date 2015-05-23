@@ -1,52 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>${item.name} - Item</title>
-</head>
-<body>
-    <h2>This is item ${item.name}</h2>
-    <em>
-        <a href="${request.route_url('home')}">Back to home page</a>
-    </em>
-    <em>
-        <a href="${request.route_url('category', id=item.category.id)}">
-            Back to category ${item.category.name}</a>
-    </em>
-    <table border="1">
-        <tr>
-            <td>Name</td>
-            <td tal:content="item.name">Name</td>
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td>${item.price}</td>
-        </tr>
-    </table>
-    <h2>Images</h2>
-    <ul tal:condition="item.images">
-        <li tal:repeat="image item.images"><img src="${image.path}" />
-        </li>
-    </ul>
-    <p tal:condition="not item.images">There is no pictures yet!</p>
-    <h2>
-        Description
-    </h2>
-    <p tal:content="structure item.description">
-    </p>
-    <h2>Comment</h2>
-    <table border="1" tal:condition="item.comments">
-        <tr>
-            <th>Author</th>
-            <th>Rank</th>
-            <th>Content</th>
-        </tr>
-        <tr tal:repeat="comment item.comments">
-            <td>${comment.user.name}</td>
-            <td>${comment.rank}</td>
-            <td>${comment.content}</td>
-        </tr>
-    </table>
-    <p tal:condition="not item.comments">There is no comment yet!</p>
-</body>
-</html>
+<metal:block use-macro="main_template">
+<div class="cen_tn" metal:fill-slot="content">
+	<div class="cen_cons">
+		<ul class="show_pro">
+			<li>
+				<a href="${request.route_url('item', id=item.id)}"><img src="${request.static_url('myshop:static/images/proi.jpg')}" width="151" height="139" /></a>
+				<p class="tits">${item.name}</p>
+				<p class="red">促销价：￥${item.price}</p>
+			</li>
+		</ul>
+	</div>
+</div>
+</metal:block>

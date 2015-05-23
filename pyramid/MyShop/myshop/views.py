@@ -15,16 +15,15 @@ from .models import (
     User)
 
 
-@view_config(route_name='home', renderer='templates/index.pt')
+@view_config(route_name='home', renderer='templates/index.pt', layout="master")
 def index_view(request):
     categories = request.db.query(Category).filter_by(parent=None).all()
-    annoncements = request.db.query(Annoncement)
 
     return {'title': 'Index - MyShop',
-            'categories': categories,
-            'annoncements': annoncements}
+            'categories': categories
+            }
 
-@view_config(route_name='category', renderer='templates/category.pt')
+@view_config(route_name='category', renderer='templates/category.pt', layout='master')
 def category_view(request):
     try:
         id = int(request.matchdict['id'])
@@ -34,12 +33,12 @@ def category_view(request):
     category = DBSession.query(Category).filter(Category.id == id).first()
     if not category:
         return HTTPNotFound()
-    categories = DBSession.query(Category).filter_by(parent=None).all()
-    return {'category': category,
-        'title': category.name + ' - Category',
-        'categories': categories}
 
-@view_config(route_name='item', renderer='templates/item.pt')
+    return {'category': category,
+        'title': category.name + ' - Category'}
+
+
+@view_config(route_name='item', renderer='templates/item.pt', layout='master')
 def item_view(request):
     try:
         id = int(request.matchdict['id'])
@@ -50,11 +49,10 @@ def item_view(request):
     if not item:
         return HTTPNotFound()
 
-    categories = DBSession.query(Category).filter_by(parent=None).all()
     return {'item': item,
-        'title': item.name + ' - Item',
-        'categories': categories
+        'title': item.name + ' - Item'
         }
+
 
 @view_config(route_name='add_item', renderer='templates/add_item.pt', permission='item')
 def item_add(request):
