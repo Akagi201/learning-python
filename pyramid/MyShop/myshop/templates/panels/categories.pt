@@ -1,0 +1,15 @@
+<ul class="prod_lei">
+	<li tal:repeat="category categories">
+	<a href="#" class="tits">${category.name}</a>
+		<div class="sg_tn">
+			<div tal:condition="category.children" class="sg_tn_lb" tal:repeat="subcat category.children">
+				<div class="sg_tn_tit">
+					<a href="${request.route_url('category', id=subcat.id)}">${subcat.name}</a>
+				</div>
+				<div class="sg_tn_txt">
+					<a href="${request.route_url('category', id=subcat2.id)}" tal:condition="subcat.children" tal:repeat="subcat2 subcat.children">${subcat2.name}</a>
+				</div>
+			</div>
+		</div>
+	</li>
+</ul>

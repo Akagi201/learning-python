@@ -5,7 +5,9 @@ from pyramid.view import view_config
 from pyramid.exceptions import HTTPNotFound
 
 from sqlalchemy.exc import DBAPIError
-
+import colander
+import deform
+from js.deform import deform as deform_static
 from .models import (
     DBSession,
     Item,
@@ -20,7 +22,8 @@ def index_view(request):
     categories = request.db.query(Category).filter_by(parent=None).all()
 
     return {'title': 'Index - MyShop',
-            'categories': categories
+            'categories': categories,
+            'category': None
             }
 
 @view_config(route_name='category', renderer='templates/category.pt', layout='master')
@@ -50,7 +53,8 @@ def item_view(request):
         return HTTPNotFound()
 
     return {'item': item,
-        'title': item.name + ' - Item'
+        'title': item.name + ' - Item',
+        'category': item.category
         }
 
 
@@ -81,8 +85,15 @@ def item_add(request):
         'category': category,
     }
 
+class LoginFormSchema(colander.MappingSchema):
+    login = colander.SchemaNode(colander.Str())
+    password = colander.SchemaNode(colander.Str())
 @view_config(route_name='login', renderer='templates/login.pt')
 def login_view(request):
+    deform_static.need()
+    schema = LoginFormSchema()
+    form = deform.Form(schema, buttons=('submit',))
+    '''
     login = request.params.get('login', None)
     password = request.params.get('password', None)
 
@@ -110,6 +121,11 @@ def login_view(request):
 
     headers = remember(request, user.id)
     return HTTPFound(location='/', headers=headers)
+    '''
+    return {
+        'title': 'login',
+        'form': form.render()
+    }
 
 @view_config(route_name='logout')
 def logout_view(request):

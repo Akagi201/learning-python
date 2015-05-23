@@ -1,0 +1,3 @@
+<a href="${request.route_url('home')}">
+	<img src="${request.static_url('myshop:static/images/logo.jpg')}" width="183" height="95" />
+</a>

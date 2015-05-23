@@ -27,7 +27,9 @@
 			</div>
 		</div>
 		<div class="top_center">
-			<div class="fl"><a href="${request.route_url('home')}"><img src="${request.static_url('myshop:static/images/logo.jpg')}" width="183" height="95" /></a></div>
+			<div class="fl">
+				${panel('logo')}
+			</div>
 			<div class="fl search">
 				<div>
 					<input name="input" type="text" placeholder="请按产品型号、产品名称搜索" />
@@ -75,21 +77,12 @@
 	<div class="cen">
 		<!--左边内容========================-->
 		<div class="cen_left">
-			<ul class="prod_lei">
-				<li tal:repeat="category layout.categories">
-					<a href="#" class="tits">${category.name}</a>
-					<div class="sg_tn">
-						<div class="sg_tn_lb" tal:repeat="subcat category.children">
-							<div class="sg_tn_tit">
-								<a href="${request.route_url('category', id=subcat.id)}">${subcat.name}</a>
-							</div>
-							<div class="sg_tn_txt">
-								<a href="${request.route_url('category', id=subcat2.id)}" tal:repeat="subcat2 subcat.children">${subcat2.name}</a>
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
+			<div tal:condition="category">
+				${panel('category', category)}
+			</div>
+			<div tal:condition="not category">
+				${panel('categories', categories)}
+			</div>
 			<div class="custom">销售排行</div>
 			<ul class="banking">
 				<li>

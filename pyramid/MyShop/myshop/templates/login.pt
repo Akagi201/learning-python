@@ -4,13 +4,6 @@
 </head>
 <body>
 	<h2>Login</h2>
-	<h3 tal:condition="message">${message}</h3>
-	<form action="#" method="POST">
-		Username: <input type="text" name="login" value="${login}" />
-		<br />
-		Password: <input type="password" name="password" />
-		<br />
-		<input type="submit" />
-	</form>
+	<div tal:content="structure form"></div>
 </body>
 </html>
