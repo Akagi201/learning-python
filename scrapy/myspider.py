@@ -12,4 +12,3 @@ class BlogSpider(scrapy.Spider):
     def parse_titles(self, response):
         for post_title in response.css('div.entries > ul > li a::text').extract():
             yield {'title': post_title}
-            
