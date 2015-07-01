@@ -4,6 +4,6 @@ def escaping_input(text):
 
 a = '"'
 
-escaping_input(a)
+b = escaping_input(a)
 
-print(a)
+print(b)
