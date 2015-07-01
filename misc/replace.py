@@ -1,8 +1,8 @@
 
 def escaping_input(text):
-    return text.replace('"', '\"')
+    return text.replace('"', '\\"').replace("'", "\\'")
 
-a = '"'
+a = '"\''
 
 b = escaping_input(a)
 
