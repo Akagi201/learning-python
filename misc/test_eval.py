@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 # eval
 def main():
@@ -11,7 +12,29 @@ def main():
     print("Define1 value ", dict['Define1'])
 
 # execfile
-execfile("test_list.py")
+#execfile("test_list.py")
 
-if __name__ == '__main__':
-    main()
+main()
+
+# eval(expression[, globals[, locals]])
+# 如果忽略后面两个参数，则eval在当前作用域执行。
+a = 1
+b = eval("a + 1")
+print(b)
+
+# 如果指定globals参数
+a = 1
+g = {'a': 10}
+b= eval("a + 1", g)
+print(b)
+
+# 如果指定locals参数
+a = 10
+b = 20
+c = 20
+g = {'a': 6, 'b': 8}
+l = {'b': 9, 'c': 10}
+d = eval("a+b+c", g, l)
+print(d)
+
+# 如果要严格限制eval执行，可以设置globals为__builtins__,这样 这个表达式只可以访问__builtin__ module。
