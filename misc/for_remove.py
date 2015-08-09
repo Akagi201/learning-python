@@ -20,6 +20,17 @@ for i in range(len(l)):
 
 print l
 
+print("倒序删除")
+
+# 倒序删除
+l = [1,2,3,4,5]
+for i in range(len(l) - 1, -1, -1):
+    print i,l[i]
+    if l[i] == 4:
+        del l[i]
+
+print l
+
 # filter
 l = [1, 2, 3, 4]
 l = filter(lambda x: x != 4, l)
@@ -50,3 +61,7 @@ print l
 print ll
 print id(l)
 print id(ll)
+
+
+
+
