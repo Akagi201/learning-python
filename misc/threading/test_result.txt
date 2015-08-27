@@ -1,0 +1,7 @@
+dog B 0
+dog A 1
+dog B 2
+dog A 3
+dog A 4
+dog B 5
+dog A 6
