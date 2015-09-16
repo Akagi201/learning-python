@@ -1,4 +1,4 @@
-#!/urs/bin/env python
+#!/usr/bin/env python
 
 from multiprocessing import Pool
 
