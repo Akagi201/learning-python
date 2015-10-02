@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="input-group" action="/add" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.content(class="form-control") }}
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Add</button>
+    </span>
+    </form>
+    {% for error in form.errors.content %}
+        <div>{{ error }}</div>
+    {% endfor %}
+    <div>
+        <h2>Todo List</h2>
+        {% if todos %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>content</th>
+                        <th>status</th>
+                        <th>time</th>
+                        <th>operate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for todo in todos %}
+                        <tr>
+                            <td>{{ todo.content }}</td>
+                            <td>
+                                {% if todo.status == 1 %}
+                                已完成
+                                {% else %}
+                                未完成
+                                {% endif %}
+                            </td>
+                            <td>{{ todo.time.strftime('%H:%M %d-%m-%Y') }}</td>
+                            {% if todo.status == 1 %}
+                                <td><a href="/undone/{{ todo.id }}" class="btn btn-primary">Undone</a></td>
+                            {% else %}
+                                <td><a href="/done/{{ todo.id }}" class="btn btn-primary">Done</a></td>
+                            {% endif %}
+                            <td><a href="/delete/{{ todo.id }}" class="btn btn-danger">Delete</a></td>
+
+                        </tr>
+                   {% endfor %}
+                </tbody>
+            </table>
+    {% else %}
+            <h3 class="text-info">No todos,please add</h3>
+    {% endif %}
+
+    </div>
+{% endblock %}
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="{{ url_for('static',filename='bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static',filename='index.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+ <div class="container">
+      <div class="header clearfix">
+        <h3 class="text-muted">Todo</h3>
+      </div>
+
+      <div class="jumbotron">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <footer class="footer">
+        <p>&copy; jikexueyuan 2015</p>
+      </footer>
+
+    </div> <!-- /container -->
+</body>
+</html>
