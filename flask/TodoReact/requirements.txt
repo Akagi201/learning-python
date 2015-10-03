@@ -1,0 +1,6 @@
+flask
+flask-wtf
+flask-script
+pymongo==2.8
+flask-mongoengine
+gunicorn
