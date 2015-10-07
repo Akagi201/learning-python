@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# Exec与Eval语句的区别: Exec处理字符串里的代码, 而Eval是处理字符串里面的表达式.
 # exec_stmt ::=  "exec" or_expr ["in" expression ["," expression]]
 # exec的第一个表达式可以是
 # 代码字符串
