@@ -11,6 +11,7 @@ window = pyglet.window.Window()
 
 @window.event
 def on_key_press(symbol, modifiers):
+    print("key %s was pressed" % symbol)
     if symbol == key.A:
         print('The "A" key was pressed.')
     elif symbol == key.LEFT:
@@ -21,6 +22,7 @@ def on_key_press(symbol, modifiers):
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
+    print("location: (%s, %s), button: %s" % (x, y, button))
     if button == mouse.LEFT:
         print('The left mouse button was pressed.')
 
