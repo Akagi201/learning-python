@@ -24,6 +24,8 @@ try:
     pyautogui.moveTo(w / 2, h / 2)
     pyautogui.dragRel(0, -r, 2, button='left')
     pyautogui.moveTo(w / 2, h / 2)
+    pyautogui.dragRel(0, r, 2, button='left')
+    pyautogui.moveTo(w / 2, h / 2)
     pyautogui.dragRel(-r * math.cos(30 * math.pi / 180), r / 2, 2, button='left')
     pyautogui.moveTo(w / 2, h / 2)
     pyautogui.dragRel(r * math.cos(30 * math.pi / 180), r / 2, 2, button='left')
