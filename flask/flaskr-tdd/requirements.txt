@@ -2,7 +2,7 @@ coverage==4.0
 docopt==0.6.2
 ecdsa==0.13.3
 Fabric==1.10.2
-Flask==0.10.1
+Flask==1.0
 Flask-Boost==0.7.2
 flask-mongoengine==0.7.1
 Flask-Script==2.0.5
