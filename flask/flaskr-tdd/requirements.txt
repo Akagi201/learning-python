@@ -15,7 +15,7 @@ gevent-websocket==0.9.5
 greenlet==0.4.9
 gunicorn==19.3.0
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==2.11.3
 MarkupSafe==0.23
 mongoengine==0.10.0
 MySQL-python==1.2.5
