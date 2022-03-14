@@ -11,8 +11,8 @@ def x(a, b, *c):
 
 # 参数前面为**, 代表这个位置的参数不知道有多少个参数, 如果有, 则将其存储为字典
 def y(*c, **k):
-    print c
-    print k
+    print(c)
+    print(k)
 
 if __name__ == "__main__":
     x(1,2,3,4)
