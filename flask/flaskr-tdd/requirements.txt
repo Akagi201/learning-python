@@ -19,7 +19,7 @@ Jinja2==2.8
 MarkupSafe==0.23
 mongoengine==0.10.0
 MySQL-python==1.2.5
-paramiko==1.15.3
+paramiko==2.10.1
 pycrypto==2.6.1
 pymongo==3.0.3
 SQLAlchemy==1.0.8
